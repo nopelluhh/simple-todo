@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="main.js"></script>
+    <style type="text/css">
+        .todos {
+            position: absolute;
+            padding: 30px;
+            text-align: center;
+            width: 30%;
+            min-width: 200px;
+            left: 35%;
+            top: 5vh;
+            min-height: 90vh;
+            background-color: #333;
+            border-radius: 10px;
+            color: white;
+        }
+
+        h1.is-primary {
+           color:  #00d1b2
+        }
+
+        .todos__input {
+            max-width: 150px;
+        }
+
+        .todos__list {
+            text-align: center;
+        }
+
+        .todos__item {
+           margin: 0 0 13px 0;
+           padding: 15px;
+           border-radius: 5px;
+           background-color: #ddd;
+           color: #333;
+        }
+
+        .item__button {
+            margin: 0 5px 0;
+        }
+
+        .complete {
+            color: #888;
+        }
+    </style>
+
+</head>
+
+<body ng-controller="todoCtrl as $ctrl">
+    <div class="todos">
+        <h1 class="title is-1 is-primary">So much todo!</h1>
+
+        
+        <form><input type="text" ng-model="$ctrl.todoInput" class="todos__input input"> <input type="submit" class="button is-primary" ng-click="$ctrl.addTodo($ctrl.todoInput)" value="Add!">
+        <hr>
+            <ul class="todos__list">
+                <li ng-if="!$ctrl.todos.length">Add a todo! </li>
+                <li class="todos__item" ng-repeat="todo in $ctrl.todos | filter:$ctrl.todoFilter" ng-class="{complete: todo.completed}">
+                    {{todo.content}}
+                    <button class="button is-danger is-outlined is-small is-pulled-right item__button" ng-click="$ctrl.removeTodo(todo.id)">Delete</button> 
+                    <button class="button is-primary is-outlined is-small is-pulled-right item__button" ng-click="$ctrl.toggleComplete(todo.id)">{{todo.completed? 'Mark Active' :'Mark Completed'}} </button>
+                </li>
+            </ul>
+            <hr>
+            <span>Filter: <button class="button is-primary is-outlined is-small" ng-click="$ctrl.toggleFilter()">{{$ctrl.todoFilter? 'Show All' : 'Show Active' }}</button></span>
+    </div>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+</body>
+
+</html>
